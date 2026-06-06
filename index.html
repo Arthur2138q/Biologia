@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expedição Biomas: Cerrado — Dr. Rafael Matos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Caveat:wght@400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --soil: #3d2b1f;
+        --bark: #6b4226;
+        --clay: #b5672a;
+        --sand: #e8c87a;
+        --straw: #f2e4b8;
+        --page: #faf6ed;
+        --mist: #f0ebe0;
+        --moss: #4a6741;
+        --leaf: #7a9a52;
+        --sage: #b5c99a;
+        --sky: #6fa3b5;
+        --dusk: #8b7355;
+        --ink: #1e140a;
+        --fade: #7a6555;
+        --accent: #c04a1a;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--soil);
+        font-family: "Source Serif 4", Georgia, serif;
+        color: var(--ink);
+        min-height: 100vh;
+      }
+
+      /* ---- NAV ---- */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(30, 20, 10, 0.92);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(181, 103, 42, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        height: 52px;
+      }
+      .nav-brand {
+        font-family: "Playfair Display", serif;
+        color: var(--sand);
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: rgba(232, 200, 122, 0.7);
+        text-decoration: none;
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--sand);
+      }
+
+      /* ---- HERO ---- */
+      .hero {
+        min-height: 100vh;
+        background: linear-gradient(
+            to bottom,
+            rgba(30, 20, 10, 0.7) 0%,
+            rgba(30, 20, 10, 0.2) 40%,
+            rgba(30, 20, 10, 0.65) 100%
+          ),
+          url("https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1400&auto=format&fit=crop&q=80")
+            center/cover no-repeat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 6rem 2rem 4rem;
+        text-align: center;
+        position: relative;
+      }
+      .hero-badge {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--sand);
+        background: rgba(181, 103, 42, 0.35);
+        border: 1px solid rgba(232, 200, 122, 0.4);
+        padding: 0.35rem 1rem;
+        border-radius: 2px;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+      }
+      .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.8rem, 7vw, 5.5rem);
+        font-weight: 900;
+        color: var(--straw);
+        line-height: 1.05;
+        max-width: 800px;
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        margin-bottom: 1rem;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--sand);
+      }
+      .hero-sub {
+        font-size: 1.1rem;
+        color: rgba(240, 235, 224, 0.85);
+        max-width: 500px;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+        font-weight: 300;
+      }
+      .hero-meta {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .hero-meta-item {
+        text-align: center;
+      }
+      .hero-meta-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgba(232, 200, 122, 0.6);
+        display: block;
+        margin-bottom: 0.2rem;
+      }
+      .hero-meta-value {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        color: var(--sand);
+        font-weight: 700;
+      }
+      .scroll-cue {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .scroll-cue span {
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgba(232, 200, 122, 0.5);
+      }
+      .scroll-cue-line {
+        width: 1px;
+        height: 40px;
+        background: linear-gradient(
+          to bottom,
+          rgba(232, 200, 122, 0.5),
+          transparent
+        );
+        animation: scrollPulse 2s infinite;
+      }
+      @keyframes scrollPulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      /* ---- SECTIONS SHARED ---- */
+      section {
+        padding: 5rem 1.5rem;
+      }
+      .section-inner {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .section-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--clay);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .section-label::before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 1px;
+        background: var(--clay);
+      }
+      h2.section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 2.5rem;
+      }
+
+      /* ---- SOBRE / INTRO ---- */
+      .sobre {
+        background: var(--page);
+      }
+      .sobre .section-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+      }
+      @media (max-width: 680px) {
+        .sobre .section-inner {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+      .sobre h2 {
+        color: var(--soil);
+      }
+      .sobre-text p {
+        color: var(--dusk);
+        line-height: 1.85;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+      .pesquisador-card {
+        background: var(--mist);
+        border: 1px solid rgba(107, 66, 38, 0.15);
+        border-radius: 4px;
+        padding: 1.75rem;
+        position: sticky;
+        top: 72px;
+      }
+      .pesquisador-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--clay), var(--bark));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: var(--straw);
+        margin-bottom: 1rem;
+      }
+      .pesquisador-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--soil);
+        margin-bottom: 0.25rem;
+      }
+      .pesquisador-role {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        color: var(--clay);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 1.25rem;
+      }
+      .pesquisador-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+      .stat {
+        background: white;
+        border-radius: 3px;
+        padding: 0.75rem;
+        border: 1px solid rgba(107, 66, 38, 0.1);
+      }
+      .stat-num {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: var(--accent);
+        line-height: 1;
+        margin-bottom: 0.2rem;
+      }
+      .stat-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--fade);
+      }
+
+      /* ---- BIOMA INFO ---- */
+      .bioma-info {
+        background: var(--mist);
+        border-top: 3px solid var(--clay);
+      }
+      .bioma-info h2 {
+        color: var(--soil);
+      }
+      .bioma-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      .bioma-card {
+        background: var(--page);
+        border: 1px solid rgba(107, 66, 38, 0.15);
+        border-radius: 4px;
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .bioma-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--leaf);
+      }
+      .bioma-card.danger::before {
+        background: var(--accent);
+      }
+      .bioma-card-icon {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+      .bioma-card h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--soil);
+        margin-bottom: 0.5rem;
+      }
+      .bioma-card p {
+        font-size: 0.875rem;
+        color: var(--fade);
+        line-height: 1.6;
+      }
+
+      /* ---- DIÁRIO 1 ---- */
+      .diario-section {
+        background: var(--soil);
+      }
+      .diario-section h2 {
+        color: var(--straw);
+      }
+      .diario-section .section-label {
+        color: var(--sand);
+      }
+      .diario-section .section-label::before {
+        background: var(--sand);
+      }
+      .diario-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        align-items: start;
+      }
+      @media (max-width: 680px) {
+        .diario-wrapper {
+          grid-template-columns: 1fr;
+        }
+      }
+      .diario-page {
+        background: #fdf8f0;
+        border-radius: 2px;
+        padding: 2.5rem 2rem;
+        position: relative;
+        box-shadow: -3px 0 8px rgba(0, 0, 0, 0.3),
+          3px 3px 12px rgba(0, 0, 0, 0.4), inset 20px 0 40px rgba(0, 0, 0, 0.04);
+        min-height: 520px;
+      }
+      .diario-page::before {
+        content: "";
+        position: absolute;
+        left: 52px;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: rgba(200, 100, 80, 0.35);
+      }
+      .diario-page::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(
+          transparent,
+          transparent 27px,
+          rgba(100, 130, 200, 0.12) 27px,
+          rgba(100, 130, 200, 0.12) 28px
+        );
+        pointer-events: none;
+      }
+      .diario-date {
+        font-family: "Caveat", cursive;
+        font-size: 0.9rem;
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        padding-left: 64px;
+        position: relative;
+        z-index: 1;
+      }
+      .diario-text {
+        font-family: "Caveat", cursive;
+        font-size: 1.1rem;
+        color: #2a1a10;
+        line-height: 1.95;
+        padding-left: 64px;
+        position: relative;
+        z-index: 1;
+      }
+      .diario-text strong {
+        font-weight: 700;
+        color: var(--bark);
+      }
+      .diario-sketch {
+        background: rgba(181, 103, 42, 0.08);
+        border: 1px dashed rgba(181, 103, 42, 0.3);
+        border-radius: 3px;
+        padding: 0.75rem;
+        margin: 1rem 0;
+        position: relative;
+        z-index: 1;
+        font-family: "Caveat", cursive;
+        font-size: 0.85rem;
+        color: var(--fade);
+        text-align: center;
+      }
+      .diario-sketch-svg {
+        width: 100%;
+        height: 120px;
+        margin-bottom: 0.25rem;
+      }
+      .diario-annotation {
+        font-family: "Caveat", cursive;
+        font-size: 0.8rem;
+        color: var(--accent);
+        font-style: italic;
+        margin-top: 1rem;
+        padding-left: 64px;
+        position: relative;
+        z-index: 1;
+      }
+      .diario-info {
+        color: rgba(240, 235, 224, 0.85);
+      }
+      .diario-info h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--straw);
+        margin-bottom: 1rem;
+      }
+      .diario-info p {
+        line-height: 1.85;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+      }
+      .plant-list {
+        list-style: none;
+        margin-top: 1.25rem;
+      }
+      .plant-list li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+      }
+      .plant-list li::before {
+        content: "●";
+        color: var(--clay);
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+      .plant-name {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 600;
+        color: var(--sand);
+        font-size: 0.9rem;
+      }
+      .plant-desc {
+        font-size: 0.85rem;
+        color: rgba(240, 235, 224, 0.7);
+        margin-top: 0.1rem;
+      }
+
+      /* ---- INFOGRÁFICO ---- */
+      .infografico-section {
+        background: var(--page);
+      }
+      .infografico-section h2 {
+        color: var(--soil);
+      }
+      .infografico-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+      }
+      @media (max-width: 680px) {
+        .infografico-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .animal-card {
+        background: white;
+        border: 1px solid rgba(107, 66, 38, 0.12);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .animal-photo {
+        height: 260px;
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.05),
+            rgba(0, 0, 0, 0.6)
+          ),
+          url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Maned_wolf2.jpg/800px-Maned_wolf2.jpg")
+            center 30% / cover;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        padding: 1.25rem;
+      }
+      .animal-name-overlay {
+        color: white;
+      }
+      .animal-name-overlay h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 900;
+        line-height: 1.1;
+      }
+      .animal-name-overlay em {
+        display: block;
+        font-size: 0.8rem;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.75);
+        font-family: "Source Serif 4", serif;
+        margin-top: 0.2rem;
+      }
+      .animal-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        background: rgba(192, 74, 26, 0.9);
+        color: white;
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.3rem 0.6rem;
+        border-radius: 2px;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+      .animal-body {
+        padding: 1.5rem;
+      }
+      .animal-data {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+      }
+      .animal-datum {
+        background: var(--mist);
+        border-radius: 3px;
+        padding: 0.6rem 0.75rem;
+      }
+      .animal-datum-label {
+        font-family: "Space Mono", monospace;
+        font-size: 0.58rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--fade);
+        display: block;
+        margin-bottom: 0.2rem;
+      }
+      .animal-datum-value {
+        font-family: "Playfair Display", serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--soil);
+      }
+      .teia-alimentar {
+        padding: 1.5rem;
+      }
+      .teia-alimentar h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--soil);
+        margin-bottom: 1.25rem;
+      }
+      .teia-svg {
+        width: 100%;
+        height: 200px;
+      }
+      .relacao-list {
+        list-style: none;
+      }
+      .relacao-item {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(107, 66, 38, 0.08);
+      }
+      .relacao-tag {
+        flex-shrink: 0;
+        padding: 0.2rem 0.5rem;
+        border-radius: 2px;
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+      }
+      .tag-predacao {
+        background: #fde8de;
+        color: var(--accent);
+      }
+      .tag-competicao {
+        background: #fef3d8;
+        color: #8a5c08;
+      }
+      .tag-mutualismo {
+        background: #e8f2e4;
+        color: var(--moss);
+      }
+      .relacao-desc {
+        font-size: 0.85rem;
+        color: var(--dusk);
+        line-height: 1.5;
+      }
+      .impacto-box {
+        background: #fff5f2;
+        border: 1px solid rgba(192, 74, 26, 0.2);
+        border-radius: 4px;
+        padding: 1.25rem;
+        margin-top: 1.25rem;
+      }
+      .impacto-box h4 {
+        font-family: "Playfair Display", serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .impacto-box p {
+        font-size: 0.85rem;
+        color: #7a3520;
+        line-height: 1.65;
+      }
+
+      /* ---- DIÁRIO 2 ---- */
+      .diario2-section {
+        background: var(--bark);
+      }
+      .diario2-section h2 {
+        color: var(--straw);
+      }
+      .diario2-section .section-label {
+        color: var(--sand);
+      }
+      .diario2-section .section-label::before {
+        background: var(--sand);
+      }
+      .diario2-section .diario-info {
+        color: rgba(242, 228, 184, 0.85);
+      }
+      .diario2-section .diario-info h3 {
+        color: var(--straw);
+      }
+      .solucao-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      @media (max-width: 600px) {
+        .solucao-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .solucao-card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(232, 200, 122, 0.15);
+        border-radius: 4px;
+        padding: 1rem;
+      }
+      .solucao-num {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        font-weight: 900;
+        color: rgba(232, 200, 122, 0.25);
+        line-height: 1;
+        margin-bottom: 0.25rem;
+      }
+      .solucao-title {
+        font-family: "Playfair Display", serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--sand);
+        margin-bottom: 0.4rem;
+      }
+      .solucao-desc {
+        font-size: 0.8rem;
+        color: rgba(232, 200, 122, 0.65);
+        line-height: 1.55;
+      }
+
+      /* ---- FOOTER ---- */
+      footer {
+        background: var(--ink);
+        padding: 3rem 2rem;
+        text-align: center;
+        border-top: 1px solid rgba(181, 103, 42, 0.2);
+      }
+      .footer-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--sand);
+        margin-bottom: 0.5rem;
+      }
+      .footer-sub {
+        font-family: "Space Mono", monospace;
+        font-size: 0.65rem;
+        color: rgba(232, 200, 122, 0.4);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .footer-divider {
+        width: 40px;
+        height: 1px;
+        background: rgba(181, 103, 42, 0.3);
+        margin: 1.25rem auto;
+      }
+      .footer-fields {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        max-width: 600px;
+        margin: 1.5rem auto 0;
+        text-align: left;
+      }
+      .footer-field label {
+        display: block;
+        font-family: "Space Mono", monospace;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(232, 200, 122, 0.5);
+        margin-bottom: 0.4rem;
+      }
+      .footer-field input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(181, 103, 42, 0.25);
+        border-radius: 3px;
+        padding: 0.6rem 0.75rem;
+        color: var(--sand);
+        font-family: "Source Serif 4", serif;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .footer-field input:focus {
+        border-color: rgba(181, 103, 42, 0.6);
+      }
+      .print-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        background: var(--clay);
+        color: white;
+        border: none;
+        border-radius: 3px;
+        padding: 0.7rem 1.5rem;
+        font-family: "Space Mono", monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .print-btn:hover {
+        background: var(--accent);
+      }
+      @media print {
+        nav,
+        .scroll-cue,
+        .print-btn {
+          display: none !important;
+        }
+        section {
+          break-inside: avoid;
+          padding: 2rem 1rem;
+        }
+      }
+
+      /* ---- ANIMAÇÕES ---- */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-brand">Expedição Biomas ✦ Cerrado</div>
+      <ul class="nav-links">
+        <li><a href="#sobre">Pesquisador</a></li>
+        <li><a href="#adaptacoes">Diário I</a></li>
+        <li><a href="#estudo">Estudo</a></li>
+        <li><a href="#problema">Diário II</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge">
+        Instituto Federal de Minas Gerais · Biologia III
+      </div>
+      <h1>Expedição ao <em>Cerrado</em></h1>
+      <p class="hero-sub">
+        Portfólio digital da expedição científica conduzida pelo Dr. Rafael
+        Matos ao coração do Cerrado Mineiro.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Bioma</span>
+          <span class="hero-meta-value">Cerrado</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Duração</span>
+          <span class="hero-meta-value">21 dias</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Região</span>
+          <span class="hero-meta-value">Alto Paranaíba, MG</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Disciplina</span>
+          <span class="hero-meta-value">Profª Patrícia Gomes</span>
+        </div>
+      </div>
+      <div class="scroll-cue">
+        <span>Explorar</span>
+        <div class="scroll-cue-line"></div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="sobre" id="sobre">
+      <div class="section-inner">
+        <div class="sobre-text">
+          <div class="section-label">O Pesquisador</div>
+          <h2 class="section-title">Dr. Rafael Augusto Matos</h2>
+          <p>
+            Biólogo e ecólogo com 12 anos de campo, especialista em ecossistemas
+            savânicos tropicais. Esta foi minha terceira expedição ao Cerrado
+            mineiro, mas a primeira com foco nas relações entre solo, clima e
+            estratégias adaptativas das plantas nativas.
+          </p>
+          <p>
+            O Cerrado cobre cerca de <strong>2 milhões de km²</strong>, sendo a
+            savana tropical mais biodiversa do mundo. Apesar disso, é um dos
+            biomas mais ameaçados do Brasil: mais de 50% de sua área original já
+            foi desmatada para pecuária e agricultura, sobretudo soja.
+          </p>
+          <p>
+            Minha expedição partiu de Araxá rumo ao alto chapadão, cruzando
+            campos rupestres, veredas, cerradões e matas de galeria. Cada
+            fisionomia revelou adaptações distintas, forçadas por um solo
+            laterítico, pobre em nutrientes, e uma estação seca brutal de até 5
+            meses sem chuva.
+          </p>
+
+          <div class="bioma-grid" style="margin-top: 2rem">
+            <div class="bioma-card fade-in">
+              <span class="bioma-card-icon">🌡️</span>
+              <h3>Clima</h3>
+              <p>
+                Tropical estacional, com chuvas concentradas (out–abr) e seca
+                severa (mai–set). Temperatura média de 22–27 °C.
+              </p>
+            </div>
+            <div class="bioma-card fade-in">
+              <span class="bioma-card-icon">🪨</span>
+              <h3>Solo</h3>
+              <p>
+                Latossolo vermelho-amarelo, muito antigo e lixiviado. Baixa
+                fertilidade natural, pH ácido (4,5–5,5) e alto teor de alumínio.
+              </p>
+            </div>
+            <div class="bioma-card fade-in">
+              <span class="bioma-card-icon">🌿</span>
+              <h3>Vegetação</h3>
+              <p>
+                Campos abertos, veredas com buritis, cerradão, matas de galeria.
+                Árvores tortuosas com casca corticosa espessa.
+              </p>
+            </div>
+            <div class="bioma-card fade-in danger">
+              <span class="bioma-card-icon">⚠️</span>
+              <h3>Ameaça</h3>
+              <p>
+                Segundo bioma mais devastado do Brasil. Queimadas, soja e
+                pecuária já destruíram mais da metade da área original.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pesquisador-card fade-in">
+          <div class="pesquisador-avatar">RM</div>
+          <div class="pesquisador-name">Dr. Rafael A. Matos</div>
+          <div class="pesquisador-role">Ecólogo · UFMG · Campo 2024</div>
+          <div class="pesquisador-stats">
+            <div class="stat">
+              <div class="stat-num">12</div>
+              <div class="stat-label">Anos de campo</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">48</div>
+              <div class="stat-label">Espécies coletadas</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">21</div>
+              <div class="stat-label">Dias de expedição</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">3ª</div>
+              <div class="stat-label">Expedição ao Cerrado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIÁRIO 1 -->
+    <section class="diario-section" id="adaptacoes">
+      <div class="section-inner">
+        <div class="section-label">Adaptações Morfofisiológicas</div>
+        <h2
+          class="section-title"
+          style="color: var(--straw); margin-bottom: 2.5rem"
+        >
+          Diário de Campo — Página I
+        </h2>
+
+        <div class="diario-wrapper">
+          <div class="diario-page fade-in">
+            <div class="diario-date">
+              15 de julho de 2024 · Chapadão de Araxá · 08h40
+            </div>
+            <div class="diario-text">
+              Acordei com o cheiro seco do solo vermelho. A temperatura já passa
+              de 25°C e é
+              <span
+                style="font-size: 1.25rem; font-weight: 700; color: var(--bark)"
+                >inverno</span
+              >. Umidade: nem 20%.<br /><br />
+
+              <span
+                style="
+                  font-size: 1.2rem;
+                  font-weight: 700;
+                  color: #1a0e06;
+                  text-decoration: underline;
+                  text-underline-offset: 3px;
+                "
+                >Como essas plantas sobrevivem??</span
+              ><br /><br />
+
+              O latossolo aqui é incrível: vermelho, pobre, cheio de ferro e
+              alumínio. A chuva já escoou faz tempo. E o Cerrado continua de pé.
+              Comecei a entender quando olhei pra baixo — pras raízes.<br /><br />
+
+              O pequizeiro que coletei ontem tem raízes que descem
+              <span
+                style="
+                  font-size: 1.3rem;
+                  font-weight: 700;
+                  color: var(--accent);
+                "
+                >mais de 18 metros</span
+              >. É isso! O sistema radicular é desproporcional à parte aérea só
+              pra alcançar o lençol freático profundo.
+              <span
+                style="
+                  font-size: 0.95rem;
+                  color: var(--fade);
+                  font-style: italic;
+                "
+                >(incrível né?)</span
+              ><br /><br />
+
+              <div class="diario-sketch">
+                <svg
+                  class="diario-sketch-svg"
+                  viewBox="0 0 320 110"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="0"
+                    y="55"
+                    width="320"
+                    height="55"
+                    fill="#c4956a"
+                    opacity="0.2"
+                    rx="0"
+                  />
+                  <text
+                    x="8"
+                    y="72"
+                    font-family="Caveat, cursive"
+                    font-size="10"
+                    fill="#7a5030"
+                  >
+                    solo superficial (seco)
+                  </text>
+                  <rect
+                    x="0"
+                    y="80"
+                    width="320"
+                    height="30"
+                    fill="#8b5e3c"
+                    opacity="0.2"
+                  />
+                  <text
+                    x="8"
+                    y="100"
+                    font-family="Caveat, cursive"
+                    font-size="10"
+                    fill="#4a2a10"
+                  >
+                    lençol freático ↓ fundo
+                  </text>
+                  <ellipse
+                    cx="80"
+                    cy="30"
+                    rx="30"
+                    ry="22"
+                    fill="#4a6741"
+                    opacity="0.7"
+                  />
+                  <rect x="77" y="50" width="6" height="8" fill="#6b4226" />
+                  <line
+                    x1="80"
+                    y1="58"
+                    x2="70"
+                    y2="90"
+                    stroke="#8b5e3c"
+                    stroke-width="1.5"
+                    opacity="0.6"
+                  />
+                  <line
+                    x1="80"
+                    y1="58"
+                    x2="80"
+                    y2="108"
+                    stroke="#6b4226"
+                    stroke-width="2"
+                    opacity="0.7"
+                    stroke-dasharray="3,2"
+                  />
+                  <line
+                    x1="80"
+                    y1="58"
+                    x2="92"
+                    y2="88"
+                    stroke="#8b5e3c"
+                    stroke-width="1.5"
+                    opacity="0.6"
+                  />
+                  <text
+                    x="100"
+                    y="80"
+                    font-family="Caveat, cursive"
+                    font-size="9"
+                    fill="#7a3520"
+                    font-style="italic"
+                  >
+                    raízes até 18m!
+                  </text>
+                  <path
+                    d="M96,76 Q90,70 84,74"
+                    stroke="#c04a1a"
+                    stroke-width="1"
+                    fill="none"
+                    marker-end="url(#sk1)"
+                  />
+                  <defs>
+                    <marker
+                      id="sk1"
+                      markerWidth="5"
+                      markerHeight="5"
+                      refX="4"
+                      refY="2.5"
+                      orient="auto"
+                    >
+                      <path d="M0,0 L4,2.5 L0,5 Z" fill="#c04a1a" />
+                    </marker>
+                  </defs>
+                  <rect
+                    x="200"
+                    y="30"
+                    width="10"
+                    height="28"
+                    fill="#4a6741"
+                    rx="5"
+                    opacity="0.8"
+                  />
+                  <rect
+                    x="190"
+                    y="38"
+                    width="30"
+                    height="7"
+                    fill="#4a6741"
+                    rx="4"
+                    opacity="0.7"
+                  />
+                  <rect x="198" y="56" width="4" height="3" fill="#6b4226" />
+                  <text
+                    x="165"
+                    y="22"
+                    font-family="Caveat, cursive"
+                    font-size="9"
+                    fill="#4a6741"
+                  >
+                    cactácea:
+                  </text>
+                  <text
+                    x="163"
+                    y="33"
+                    font-family="Caveat, cursive"
+                    font-size="9"
+                    fill="#7a6555"
+                  >
+                    água no caule
+                  </text>
+                </svg>
+                <div style="font-size: 0.75rem; color: var(--fade)">
+                  esboço meu — comparativo raízes x caule
+                </div>
+              </div>
+
+              A lixeira (<span style="font-style: italic"
+                >Curatella americana</span
+              >) tem folhas grossas, ásperas como lixa. Refletem luz, dificultam
+              a transpiração.
+              <span
+                style="
+                  background: rgba(232, 200, 122, 0.4);
+                  padding: 1px 3px;
+                  border-radius: 2px;
+                  font-weight: 700;
+                "
+                >Xeromorfismo clássico.</span
+              ><br /><br />
+
+              Folhas pequenas, esclerófilas. Estômatos fundos, com pelos. Tudo —
+              absolutamente
+              <span style="font-size: 1.15rem; font-weight: 700">tudo</span> —
+              pra guardar água.
+            </div>
+            <div class="diario-annotation">
+              → coletei amostras de folhas pra análise em BH — ver envelope
+              #12<br /><span style="font-size: 0.75rem"
+                >lembrar de checar pH do solo coletado amanhã cedo</span
+              >
+            </div>
+          </div>
+
+          <div class="diario-info fade-in">
+            <h3>Adaptações observadas</h3>
+            <p>
+              O Cerrado impõe dois desafios simultâneos às plantas:
+              <strong>seca prolongada</strong> e
+              <strong>solo pobre e ácido</strong>. As espécies desenvolveram
+              soluções morfológicas e fisiológicas sofisticadas ao longo de
+              milhões de anos.
+            </p>
+            <ul class="plant-list">
+              <li>
+                <div>
+                  <div class="plant-name">
+                    Caryocar brasiliense — Pequizeiro
+                  </div>
+                  <div class="plant-desc">
+                    Raízes pivotantes profundíssimas (até 18 m) que alcançam o
+                    lençol freático. Casca corticosa com espessura de até 5 cm
+                    que protege contra incêndios. Folhas caducas na seca para
+                    reduzir perda de água.
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <div class="plant-name">Curatella americana — Lixeira</div>
+                  <div class="plant-desc">
+                    Folhas esclerófilas (duras, rígidas) com superfície áspera
+                    que dispersa luz. Cutícula cerosa espessa e estômatos
+                    rebaixados para minimizar transpiração. Alta densidade de
+                    pelos (tricomas).
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <div class="plant-name">Mauritia flexuosa — Buriti</div>
+                  <div class="plant-desc">
+                    Cresce exclusivamente nas veredas, onde há água permanente.
+                    Caule esponjoso e raízes adaptadas ao solo encharcado. Único
+                    representante do Cerrado que não precisa resistir à seca: a
+                    vereda é seu microhabitat privilegiado.
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <div class="plant-name">
+                    Encholirium sp. — Bromélias rupestres
+                  </div>
+                  <div class="plant-desc">
+                    Vivem em afloramentos rochosos. Folhas em roseta que formam
+                    "cisternas" onde acumulam água da chuva e do orvalho.
+                    Metabolismo CAM: abrem estômatos à noite para capturar CO₂ e
+                    evitar perda hídrica diurna.
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <p
+              style="
+                margin-top: 1.5rem;
+                font-size: 0.85rem;
+                color: rgba(240, 235, 224, 0.55);
+              "
+            >
+              Solo ácido com alumínio tóxico levou ao desenvolvimento de
+              mecanismos de exclusão de Al³⁺ nas raízes e compartimentalização
+              intracelular em vacúolos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFOGRÁFICO / ESTUDO DE CASO -->
+    <section class="infografico-section" id="estudo">
+      <div class="section-inner">
+        <div class="section-label">Estudo de Caso</div>
+        <h2 class="section-title">Lobo-guará — Guardião do Cerrado</h2>
+
+        <div class="infografico-grid">
+          <div>
+            <div class="animal-card fade-in">
+              <div class="animal-photo" style="
+              height: 260px;
+              background: linear-gradient(
+                  to bottom,
+                  rgba(0, 0, 0, 0.05),
+                  rgba(0, 0, 0, 0.6)
+                ),
+                url('https://s2-vidadebicho.glbimg.com/sDuXEE4SxEqXqcR4BcHC4K3gXQA=/0x0:800x533/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_fb623579cd474803aedbbbbae014af68/internal_photos/bs/2022/6/F/APoVl1Q7GjCkZfN7YI6g/2022-09-07-lobo-guara-27-fatos-sobre-este-belo-animal-brasileiro.jpeg') 
+                center 30% / cover;
+              position: relative;
+              display: flex;
+              align-items: flex-end;
+              padding: 1.25rem;"
+              >
+
+                <span class="animal-status">⚠ Vulnerável</span>
+                <div class="animal-name-overlay">
+                  <h3>Lobo-guará</h3>
+                  <em>Chrysocyon brachyurus</em>
+                </div>
+              </div>
+              <div class="animal-body">
+                <div class="animal-data">
+                  <div class="animal-datum">
+                    <span class="animal-datum-label">Peso</span>
+                    <span class="animal-datum-value">20–30 kg</span>
+                  </div>
+                  <div class="animal-datum">
+                    <span class="animal-datum-label">Território</span>
+                    <span class="animal-datum-value">~30 km²</span>
+                  </div>
+                  <div class="animal-datum">
+                    <span class="animal-datum-label">Dieta</span>
+                    <span class="animal-datum-value">Onívoro</span>
+                  </div>
+                  <div class="animal-datum">
+                    <span class="animal-datum-label">Pop. estimada</span>
+                    <span class="animal-datum-value">~23.000 ind.</span>
+                  </div>
+                </div>
+                <div class="impacto-box">
+                  <h4>⚡ Impacto do desmatamento</h4>
+                  <p>
+                    A fragmentação do Cerrado destrói os corredores ecológicos
+                    que o lobo-guará usa para caçar e se reproduzir. Com menos
+                    de 30 km² de território por indivíduo, qualquer pedaço de
+                    mata destruído isola populações. O resultado é
+                    <strong>endogamia</strong> (cruzamento entre parentes),
+                    queda imunológica e extinção local. A expansão da soja
+                    avança sobre as veredas, onde o lobo-guará caça. O risco de
+                    atropelamento em estradas que cortam o bioma também matou
+                    mais de 600 indivíduos só em 2022.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fade-in">
+            <!-- GALERIA DE FOTOS -->
+            <div style="margin-bottom: 1.5rem">
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  gap: 8px;
+                  margin-bottom: 8px;
+                "
+              >
+                <div
+                  style="
+                    height: 130px;
+                    border-radius: 4px;
+                    overflow: hidden;
+                    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Maned_wolf2.jpg/600px-Maned_wolf2.jpg')
+                      center 25% / cover;
+                  "
+                ></div>
+                <div
+                  style="
+                    height: 130px;
+                    border-radius: 4px;
+                    overflow: hidden;
+                    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Lobo_Guara_ZOO.jpg/600px-Lobo_Guara_ZOO.jpg')
+                      center/cover;
+                  "
+                ></div>
+              </div>
+              <div
+                style="
+                  height: 100px;
+                  border-radius: 4px;
+                  overflow: hidden;
+                  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Chrysocyon_brachyurus_-_26027.jpg/800px-Chrysocyon_brachyurus_-_26027.jpg')
+                    center 40% / cover;
+                "
+              ></div>
+              <p
+                style="
+                  font-family: 'Space Mono', monospace;
+                  font-size: 0.58rem;
+                  color: var(--fade);
+                  margin-top: 5px;
+                  letter-spacing: 0.06em;
+                  text-transform: uppercase;
+                "
+              >
+                Fotos: Wikimedia Commons · CC BY-SA
+              </p>
+            </div>
+
+            <!-- TEIA ALIMENTAR LIMPA -->
+            <div
+              style="
+                background: white;
+                border: 1px solid rgba(107, 66, 38, 0.12);
+                border-radius: 6px;
+                padding: 1.25rem;
+                margin-bottom: 1rem;
+              "
+            >
+              <h3
+                style="
+                  font-family: 'Playfair Display', serif;
+                  font-size: 1rem;
+                  font-weight: 700;
+                  color: var(--soil);
+                  margin-bottom: 1.25rem;
+                "
+              >
+                Posição na Teia Alimentar
+              </h3>
+              <svg
+                width="100%"
+                viewBox="0 0 300 310"
+                xmlns="http://www.w3.org/2000/svg"
+                style="display: block"
+              >
+                <defs>
+                  <marker
+                    id="arv"
+                    markerWidth="7"
+                    markerHeight="7"
+                    refX="6"
+                    refY="3.5"
+                    orient="auto"
+                  >
+                    <path d="M0,1 L6,3.5 L0,6 Z" fill="#4a6741" />
+                  </marker>
+                  <marker
+                    id="arl"
+                    markerWidth="7"
+                    markerHeight="7"
+                    refX="6"
+                    refY="3.5"
+                    orient="auto"
+                  >
+                    <path d="M0,1 L6,3.5 L0,6 Z" fill="#c04a1a" />
+                  </marker>
+                  <marker
+                    id="ard"
+                    markerWidth="7"
+                    markerHeight="7"
+                    refX="6"
+                    refY="3.5"
+                    orient="auto"
+                  >
+                    <path d="M0,1 L6,3.5 L0,6 Z" fill="#8b7355" />
+                  </marker>
+                </defs>
+
+                <!-- Nível 1: Sol -->
+                <circle cx="150" cy="24" r="18" fill="#e8c87a" />
+                <text
+                  x="150"
+                  y="29"
+                  font-family="Caveat, cursive"
+                  font-size="13"
+                  fill="#3d2b1f"
+                  text-anchor="middle"
+                  font-weight="700"
+                >
+                  Sol
+                </text>
+
+                <!-- seta sol -> produtores -->
+                <line
+                  x1="150"
+                  y1="43"
+                  x2="150"
+                  y2="65"
+                  stroke="#4a6741"
+                  stroke-width="1.8"
+                  marker-end="url(#arv)"
+                />
+
+                <!-- Nível 2: Produtores -->
+                <rect
+                  x="30"
+                  y="68"
+                  width="100"
+                  height="28"
+                  rx="4"
+                  fill="#7a9a52"
+                />
+                <text
+                  x="80"
+                  y="86"
+                  font-family="Caveat, cursive"
+                  font-size="12"
+                  fill="#fff"
+                  text-anchor="middle"
+                >
+                  Vegetação
+                </text>
+                <rect
+                  x="170"
+                  y="68"
+                  width="100"
+                  height="28"
+                  rx="4"
+                  fill="#b5c99a"
+                />
+                <text
+                  x="220"
+                  y="86"
+                  font-family="Caveat, cursive"
+                  font-size="11"
+                  fill="#2a4020"
+                  text-anchor="middle"
+                >
+                  Frutos / Raízes
+                </text>
+
+                <!-- setas produtores -> consumidores 1 -->
+                <line
+                  x1="80"
+                  y1="97"
+                  x2="80"
+                  y2="133"
+                  stroke="#4a6741"
+                  stroke-width="1.6"
+                  marker-end="url(#arv)"
+                />
+                <line
+                  x1="220"
+                  y1="97"
+                  x2="220"
+                  y2="133"
+                  stroke="#4a6741"
+                  stroke-width="1.6"
+                  marker-end="url(#arv)"
+                />
+
+                <!-- Nível 3: Consumidores primários -->
+                <rect
+                  x="20"
+                  y="136"
+                  width="120"
+                  height="28"
+                  rx="4"
+                  fill="#e8c87a"
+                  opacity="0.85"
+                />
+                <text
+                  x="80"
+                  y="154"
+                  font-family="Caveat, cursive"
+                  font-size="11"
+                  fill="#3d2b1f"
+                  text-anchor="middle"
+                >
+                  Roedores / Aves
+                </text>
+                <rect
+                  x="160"
+                  y="136"
+                  width="120"
+                  height="28"
+                  rx="4"
+                  fill="#e8c87a"
+                  opacity="0.7"
+                />
+                <text
+                  x="220"
+                  y="154"
+                  font-family="Caveat, cursive"
+                  font-size="11"
+                  fill="#3d2b1f"
+                  text-anchor="middle"
+                >
+                  Répteis / Insetos
+                </text>
+
+                <!-- setas cons. primários -> lobo -->
+                <line
+                  x1="80"
+                  y1="165"
+                  x2="130"
+                  y2="200"
+                  stroke="#c04a1a"
+                  stroke-width="2"
+                  marker-end="url(#arl)"
+                  stroke-dasharray="5,3"
+                />
+                <line
+                  x1="220"
+                  y1="165"
+                  x2="170"
+                  y2="200"
+                  stroke="#c04a1a"
+                  stroke-width="2"
+                  marker-end="url(#arl)"
+                  stroke-dasharray="5,3"
+                />
+
+                <!-- Nível 4: Lobo-guará (destaque) -->
+                <rect
+                  x="80"
+                  y="200"
+                  width="140"
+                  height="36"
+                  rx="6"
+                  fill="#c04a1a"
+                />
+                <text
+                  x="150"
+                  y="222"
+                  font-family="Caveat, cursive"
+                  font-size="14"
+                  fill="white"
+                  text-anchor="middle"
+                  font-weight="700"
+                >
+                  Lobo-guará
+                </text>
+
+                <!-- seta lobo -> decompositores -->
+                <line
+                  x1="150"
+                  y1="237"
+                  x2="150"
+                  y2="268"
+                  stroke="#8b7355"
+                  stroke-width="1.4"
+                  marker-end="url(#ard)"
+                  opacity="0.7"
+                />
+
+                <!-- Nível 5: Decompositores -->
+                <rect
+                  x="75"
+                  y="270"
+                  width="150"
+                  height="26"
+                  rx="4"
+                  fill="#b5672a"
+                  opacity="0.55"
+                />
+                <text
+                  x="150"
+                  y="287"
+                  font-family="Caveat, cursive"
+                  font-size="11"
+                  fill="#3d1a0a"
+                  text-anchor="middle"
+                >
+                  Decompositores
+                </text>
+
+                <!-- legenda -->
+                <line
+                  x1="25"
+                  y1="302"
+                  x2="50"
+                  y2="302"
+                  stroke="#4a6741"
+                  stroke-width="1.5"
+                  marker-end="url(#arv)"
+                />
+                <text
+                  x="54"
+                  y="306"
+                  font-family="Caveat, cursive"
+                  font-size="9"
+                  fill="#4a6741"
+                >
+                  fluxo de energia
+                </text>
+                <line
+                  x1="155"
+                  y1="302"
+                  x2="180"
+                  y2="302"
+                  stroke="#c04a1a"
+                  stroke-width="1.5"
+                  stroke-dasharray="4,2"
+                  marker-end="url(#arl)"
+                />
+                <text
+                  x="184"
+                  y="306"
+                  font-family="Caveat, cursive"
+                  font-size="9"
+                  fill="#c04a1a"
+                >
+                  predação
+                </text>
+              </svg>
+            </div>
+
+            <!-- RELAÇÕES ECOLÓGICAS -->
+            <div
+              style="
+                background: white;
+                border: 1px solid rgba(107, 66, 38, 0.12);
+                border-radius: 6px;
+                padding: 1.25rem;
+              "
+            >
+              <h3
+                style="
+                  font-family: 'Playfair Display', serif;
+                  font-size: 1rem;
+                  font-weight: 700;
+                  color: var(--soil);
+                  margin-bottom: 1rem;
+                "
+              >
+                Relações Ecológicas
+              </h3>
+              <ul class="relacao-list">
+                <li class="relacao-item">
+                  <span class="relacao-tag tag-predacao">Predação</span>
+                  <div class="relacao-desc">
+                    Predata roedores (ratos-do-mato, cotias), aves terrestres,
+                    répteis e tatu-peba. Regula a população de herbívoros e
+                    controla a disseminação de doenças zoonóticas.
+                  </div>
+                </li>
+                <li class="relacao-item">
+                  <span class="relacao-tag tag-mutualismo">Mutualismo</span>
+                  <div class="relacao-desc">
+                    Dispersa sementes do lobeira (<em>Solanum lycocarpum</em>),
+                    sua fruta favorita. Os frutos ingeridos germinam com muito
+                    mais sucesso após passar pelo trato digestivo do lobo.
+                  </div>
+                </li>
+                <li class="relacao-item">
+                  <span class="relacao-tag tag-competicao">Competição</span>
+                  <div class="relacao-desc">
+                    Compete com a raposa-do-campo (<em>Lycalopex vetulus</em>)
+                    por recursos em campo aberto. A coexistência é possível pelo
+                    nicho diferenciado de horário e habitat.
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIÁRIO 2 -->
+    <section class="diario2-section" id="problema">
+      <div class="section-inner">
+        <div class="section-label">Problema Ambiental e Intervenção</div>
+        <h2 class="section-title">Diário de Campo — Página II</h2>
+
+        <div class="diario-wrapper">
+          <div class="diario-page fade-in">
+            <div class="diario-date">
+              28 de julho de 2024 · Estrada MG-050 · 14h20
+            </div>
+            <div class="diario-text">
+              Ontem o que vi me partiu o coração. Fui até a fazenda nova a leste
+              do chapadão. Era Cerrado há dois anos. Hoje é um espelho marrom de
+              solo nu esperando a soja do plantio direto.<br /><br />
+
+              <strong>O solo estava morto.</strong> Passei o medidor e o pH deu
+              6,8 — esse solo foi calcareado para neutralizar a acidez do
+              Cerrado. Toda a fauna microbiana nativa, que levou milênios para
+              se adaptar ao pH 4,5, foi eliminada.<br /><br />
+
+              <div class="diario-sketch">
+                <svg
+                  class="diario-sketch-svg"
+                  viewBox="0 0 320 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <!-- Before -->
+                  <text
+                    x="60"
+                    y="15"
+                    font-family="Caveat, cursive"
+                    font-size="11"
+                    fill="#4a6741"
+                    text-anchor="middle"
+                  >
+                    ANTES
+                  </text>
+                  <rect
+                    x="10"
+                    y="20"
+                    width="100"
+                    height="60"
+                    fill="#7a9a52"
+                    rx="3"
+                    opacity="0.3"
+                  />
+                  <!-- trees -->
+                  <ellipse
+                    cx="35"
+                    cy="35"
+                    rx="12"
+                    ry="9"
+                    fill="#4a6741"
+                    opacity="0.6"
+                  />
+                  <rect x="33" y="44" width="4" height="10" fill="#6b4226" />
+                  <ellipse
+                    cx="65"
+                    cy="30"
+                    rx="15"
+                    ry="11"
+                    fill="#4a6741"
+                    opacity="0.7"
+                  />
+                  <rect x="63" y="40" width="4" height="14" fill="#6b4226" />
+                  <ellipse
+                    cx="95"
+                    cy="38"
+                    rx="10"
+                    ry="8"
+                    fill="#4a6741"
+                    opacity="0.5"
+                  />
+                  <rect x="93" y="46" width="4" height="8" fill="#6b4226" />
+                  <text
+                    x="60"
+                    y="88"
+                    font-family="Caveat, cursive"
+                    font-size="9"
+                    fill="#4a6741"
+                    text-anchor="middle"
+                  >
+                    Cerrado nativo
+                  </text>
+                  <!-- Arrow -->
+                  <text
+                    x="160"
+                    y="50"
+                    font-family="Caveat, cursive"
+                    font-size="22"
+                    fill="#c04a1a"
+                    text-anchor="middle"
+                  >
+                    →
+                  </text>
+                  <text
+                    x="160"
+                    y="68"
+                    font-family="Caveat, cursive"
+                    font-size="9"
+                    fill="#7a3520"
+                    text-anchor="middle"
+                  >
+                    desmatamento
+                  </text>
+                  <!-- After -->
+                  <text
+                    x="260"
+                    y="15"
+                    font-family="Caveat, cursive"
+                    font-size="11"
+                    fill="#7a3520"
+                    text-anchor="middle"
+                  >
+                    DEPOIS
+                  </text>
+                  <rect
+                    x="210"
+                    y="20"
+                    width="100"
+                    height="60"
+                    fill="#c4956a"
+                    rx="3"
+                    opacity="0.4"
+                  />
+                  <line
+                    x1="210"
+                    y1="50"
+                    x2="310"
+                    y2="50"
+                    stroke="#8b5e3c"
+                    stroke-width="1"
+                    opacity="0.5"
+                  />
+                  <line
+                    x1="210"
+                    y1="62"
+                    x2="310"
+                    y2="62"
+                    stroke="#8b5e3c"
+                    stroke-width="1"
+                    opacity="0.4"
+                  />
+                  <!-- soja rows -->
+                  <line
+                    x1="225"
+                    y1="38"
+                    x2="225"
+                    y2="78"
+                    stroke="#c04a1a"
+                    stroke-width="1.5"
+                    opacity="0.4"
+                  />
+                  <line
+                    x1="245"
+                    y1="38"
+                    x2="245"
+                    y2="78"
+                    stroke="#c04a1a"
+                    stroke-width="1.5"
+                    opacity="0.4"
+                  />
+                  <line
+                    x1="265"
+                    y1="38"
+                    x2="265"
+                    y2="78"
+                    stroke="#c04a1a"
+                    stroke-width="1.5"
+                    opacity="0.4"
+                  />
+                  <line
+                    x1="285"
+                    y1="38"
+                    x2="285"
+                    y2="78"
+                    stroke="#c04a1a"
+                    stroke-width="1.5"
+                    opacity="0.4"
+                  />
+                  <text
+                    x="260"
+                    y="88"
+                    font-family="Caveat, cursive"
+                    font-size="9"
+                    fill="#7a3520"
+                    text-anchor="middle"
+                  >
+                    Monocultura
+                  </text>
+                </svg>
+                <div style="font-size: 0.75rem; color: var(--fade)">
+                  Transformação da paisagem observada — área de 1.200 ha
+                </div>
+              </div>
+
+              A vereda que atravessava essa propriedade foi aterrada.
+              <strong>Buriti, ipê e lobeira, tudo tombado.</strong> Na beira da
+              estrada, encontrei três carcaças de tatu-peba. Provavelmente
+              atropelados quando tentaram atravessar.<br /><br />
+
+              Se não agirmos agora, não haverá Cerrado para mostrar aos meus
+              alunos daqui a 20 anos.
+            </div>
+            <div class="diario-annotation">
+              * Registrei as coordenadas GPS. Área possivelmente em desacordo
+              com o Código Florestal — área de preservação permanente da vereda.
+            </div>
+          </div>
+
+          <div class="diario-info fade-in">
+            <h3>Solução Baseada em Desenvolvimento Sustentável</h3>
+            <p>
+              O problema central é a expansão agrícola não planejada sobre
+              remanescentes de Cerrado, especialmente veredas e campos
+              rupestres. A solução precisa equilibrar produção econômica com
+              conservação ambiental.
+            </p>
+            <p>
+              Proponho a implementação de
+              <strong>corredores ecológicos agroflorestais</strong> integrados
+              ao Pagamento por Serviços Ambientais (PSA).
+            </p>
+
+            <div class="solucao-grid">
+              <div class="solucao-card">
+                <div class="solucao-num">01</div>
+                <div class="solucao-title">Restauração de veredas</div>
+                <div class="solucao-desc">
+                  Replantio de buritis e espécies nativas nas margens dos
+                  córregos. Custo coberto pelo PSA federal (Lei 14.119/2021).
+                </div>
+              </div>
+              <div class="solucao-card">
+                <div class="solucao-num">02</div>
+                <div class="solucao-title">Corredores ecológicos</div>
+                <div class="solucao-desc">
+                  Faixas de 50 m de Cerrado nativo entre talhões de soja.
+                  Permitem deslocamento da fauna e reduzem mortalidade por
+                  atropelamento.
+                </div>
+              </div>
+              <div class="solucao-card">
+                <div class="solucao-num">03</div>
+                <div class="solucao-title">Agrossilvicultura</div>
+                <div class="solucao-desc">
+                  Integração de espécies nativas do Cerrado (pequi, baru,
+                  mangaba) com cultivos. Gera renda e conserva biodiversidade.
+                </div>
+              </div>
+              <div class="solucao-card">
+                <div class="solucao-num">04</div>
+                <div class="solucao-title">Monitoramento por satélite</div>
+                <div class="solucao-desc">
+                  Uso do MapBiomas Cerrado para fiscalização em tempo real das
+                  APPs e Reservas Legais. Alertas automáticos para órgãos
+                  ambientais.
+                </div>
+              </div>
+              <div class="solucao-card">
+                <div class="solucao-num">05</div>
+                <div class="solucao-title">Educação ambiental</div>
+                <div class="solucao-desc">
+                  Programas nas escolas rurais para valorizar o Cerrado como
+                  recurso econômico (turismo, frutos nativos) e não só como área
+                  a desmatar.
+                </div>
+              </div>
+              <div class="solucao-card">
+                <div class="solucao-num">06</div>
+                <div class="solucao-title">Soja Responsável</div>
+                <div class="solucao-desc">
+                  Certificação RTRS para produtores que mantêm áreas nativas.
+                  Acesso a mercados premium na Europa que exigem rastreabilidade
+                  ambiental.
+                </div>
+              </div>
+            </div>
+
+            <p
+              style="
+                margin-top: 1.5rem;
+                font-size: 0.82rem;
+                color: rgba(242, 228, 184, 0.55);
+                font-style: italic;
+              "
+            >
+              "O Cerrado não é obstáculo ao desenvolvimento. É a base de
+              sustentação do Aquífero Guarani, das nascentes do São Francisco,
+              do Tocantins e do Paraná. Destruí-lo é secar o Brasil." — Rafael
+              Matos, diário, jul. 2024.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-title">Portfólio Digital — Expedição Biomas</div>
+      <div class="footer-sub">
+        Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais
+      </div>
+      <div class="footer-divider"></div>
+      <p
+        style="
+          font-family: 'Space Mono', monospace;
+          font-size: 0.65rem;
+          color: rgba(232, 200, 122, 0.4);
+          margin-bottom: 1rem;
+        "
+      >
+        Preencha os campos abaixo antes de imprimir
+      </p>
+      <div class="footer-fields">
+        <div class="footer-field">
+          <label>Estudante(s)</label>
+          <input type="text" placeholder="Seu nome completo" />
+        </div>
+        <div class="footer-field">
+          <label>Turma</label>
+          <input type="text" placeholder="Ex: 3ºA" />
+        </div>
+        <div class="footer-field">
+          <label>Curso</label>
+          <input type="text" placeholder="Seu curso" />
+        </div>
+        <div class="footer-field">
+          <label>Data de entrega</label>
+          <input type="text" placeholder="DD/MM/AAAA" />
+        </div>
+      </div>
+      <button class="print-btn" onclick="window.print()">
+        🖨 Imprimir / Salvar PDF
+      </button>
+      <p
+        style="
+          font-family: 'Space Mono', monospace;
+          font-size: 0.6rem;
+          color: rgba(232, 200, 122, 0.25);
+          margin-top: 1.5rem;
+          letter-spacing: 0.08em;
+        "
+      >
+        Disciplina: Biologia III · Profª Patrícia Gomes · Carga horária: 60h
+      </p>
+    </footer>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
+<div class="animal-photo">
+  <span class="animal-status">⚠ Vulnerável</span>
+  <div class="animal-name-overlay">
+    <h3>Lobo-guará</h3>
+    <em>Chrysocyon brachyurus</em>
+  </div>
+</div>
